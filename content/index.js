@@ -2,6 +2,23 @@ import IPFS from 'ipfs-http-client';
 
 console.log("Loaded content script in document:", document);
 
+chrome.storage.local.get(['rootHash'], function(result) {
+  console.log('rootHash result', result);
+  if (!result.rootHash) {
+
+    // Initialize RootHash:
+    ipfs.files.mkdir('/stash').then(cid => {
+      console.log("Initialized root directory in IPFS:", cid);
+
+      // Save to storage:
+
+    }).catch(e => {
+      console.log(e);
+    });
+
+  }
+});
+
 const ipfs = new IPFS({
   host: "127.0.0.1",
   port: 5001,
@@ -30,14 +47,45 @@ const post = (obj) => {
     console.log('Buffer:', buffer);
 
     ipfs.add({
-      path: `/tmp/${obj.name}`,
+      path: `/${obj.name}`,
       content: buffer,
     }).then(cid => {
-      resolve(cid);
+      console.log('resolving name:', obj.name);
+      resolve({ cid, name: obj.name });
     }).catch(e => {
       reject(e);
     });
   });
+};
+
+
+const copyToStashDirectory = (cid, name) => {
+  console.log('Copying to /stash', cid[0]);
+  ipfs.files.cp(`/ipfs/${cid[0].hash}`, `/stash/${name}`, err => {
+    if (err) {
+      console.error(err)
+    }
+  });
+
+  console.log('reading MFS ls /stash:');
+  ipfs.files.ls('/stash', (err, files) => {
+    if (err) {
+      console.log(err);
+    }
+
+    console.log(files)
+
+    console.log('reading stat for each file in stash/:');
+    files.forEach(file => {
+      ipfs.files.stat(`/stash/${file.name}`, (err, stats) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(stats)
+      });
+    });
+  });
+
 };
 
 function processImage(element) {
@@ -72,13 +120,16 @@ function processImage(element) {
   req.onload = function() {
     var blob = req.response;
     var fileReader = new FileReader();
+    console.log('FILEREADER', fileReader);
     fileReader.onloadend = function() {
       post({
         name: fileName,
         type: "dataUrl",
         data: fileReader.result,
-      }).then(cid => {
-        console.log("Added image to ipfs:", cid);
+      }).then(result => {
+        console.log("Added image to ipfs:", result.cid);
+        console.log('resolved name:', result.name);
+        copyToStashDirectory(result.cid, result.name);
       }).catch(e => {
         throw new Error(e);
       });

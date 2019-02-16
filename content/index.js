@@ -36,9 +36,11 @@ const post = (obj) => {
     let buffer;
     switch(obj.type) {
       case "dataUrl":
-        buffer = Buffer.from(obj.data);
+        console.log("dataUrl");
+        buffer = Buffer.from(obj.data, 'base64');
         break;
       case "json":
+        console.log("JSON");
         buffer = new Buffer(JSON.stringify(obj.data));
         break;
       default:
@@ -66,26 +68,6 @@ const copyToStashDirectory = (cid, name) => {
       console.error(err)
     }
   });
-
-  console.log('reading MFS ls /stash:');
-  ipfs.files.ls('/stash', (err, files) => {
-    if (err) {
-      console.log(err);
-    }
-
-    console.log(files)
-
-    console.log('reading stat for each file in stash/:');
-    files.forEach(file => {
-      ipfs.files.stat(`/stash/${file.name}`, (err, stats) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(stats)
-      });
-    });
-  });
-
 };
 
 function processImage(element) {

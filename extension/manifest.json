@@ -15,7 +15,7 @@
     "persistent": false
   },
   "page_action": {
-    "default_popup": "popup/build/index.html",
+    "default_popup": "popup/index.html",
     "default_icon": {
       "16": "images/ipfs-stash-16.png",
       "32": "images/ipfs-stash-32.png",

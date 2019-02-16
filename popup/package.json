@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf ../extension/popup && INLINE_RUNTIME_CHUNK=false react-scripts build && mv build ../extension/popup",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -21,5 +21,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "homepage": "."
 }

@@ -21,7 +21,7 @@
       "js": ["content.js"]
     }
   ],
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup/index.html",
     "default_icon": {
       "16": "images/ipfs-stash-16.png",

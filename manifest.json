@@ -1,0 +1,33 @@
+{
+  "name": "IPFS Stash",
+  "version": "1.0",
+  "description": "IPFS Chrome utility for easily managing local assets.",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup/build/index.html",
+    "default_icon": {
+      "16": "images/ipfs-stash-16.png",
+      "32": "images/ipfs-stash-32.png",
+      "48": "images/ipfs-stash-48.png",
+      "128": "images/ipfs-stash-128.png"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "images/ipfs-stash-16.png",
+    "32": "images/ipfs-stash-32.png",
+    "48": "images/ipfs-stash-48.png",
+    "128": "images/ipfs-stash-128.png"
+  }
+}

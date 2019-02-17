@@ -15,6 +15,10 @@ const Button = styled.button`
   font-weight: 500;
   padding: 15px 24px;
   font-size: 14px;
+
+  &:hover {
+    background: rgb(241, 205, 202);
+  }
 `;
 
 class Remove extends React.Component {

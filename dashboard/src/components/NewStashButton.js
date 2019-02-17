@@ -14,6 +14,10 @@ const Button = styled.button`
   font-weight: 500;
   padding: 15px 24px;
   font-size: 14px;
+
+  &:hover {
+    background: rgb(205, 230, 236);
+  }
 `;
 
 

@@ -1,10 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import check from '../check.svg';
 import { toggleFile } from '../util/redux';
 import Remove from './Remove';
+
+const fadeUpIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+`;
 
 const Header = styled.div`
   display: grid;
@@ -25,7 +36,7 @@ const List = styled.div`
 
 const ListItem = styled.div`
   position: relative;
-  height: 200px;
+  height: 294px;
   margin: 15px;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 18px;
@@ -34,10 +45,17 @@ const ListItem = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  opacity: 0;
+
+  &.animate {
+    animation: ${fadeUpIn} 0.5s ease-in forwards;
+  }
+
+  will-change: transform, opacity;
 
   ${props => props.selected && `
     border: 17px solid #459EA2;
-    height: 166px;
+    height: 260px;
     &::after {
       content: "";
       position: absolute;
@@ -51,16 +69,45 @@ const ListItem = styled.div`
     }
   `}
 
+  ${props => props.selectionMode && !props.selected && `
+    opacity: 0.5;
+  `}
+
   img {
     width: 230px;
   }
 `;
 
+class FileItem extends React.Component {
+
+  state = {
+    className: "",
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ className: "animate" });
+    }, this.props.index * 100);
+  }
+
+  render() {
+    return (
+      <ListItem {...this.props} className={this.state.className} />
+    );
+  }
+
+}
+
 class FileList extends React.Component {
 
   render() {
 
-    let { files, currentStashName } = this.props;
+    let {
+      files,
+      currentStashName,
+      selectedFiles,
+      selectionMode,
+    } = this.props;
 
     if (Object.keys(files).length === 0) {
       return <React.Fragment />;
@@ -79,14 +126,15 @@ class FileList extends React.Component {
         </Header>
 
         <List>
-          {Object.keys(files).map(name =>
-            <ListItem
+          {Object.keys(files).map((name, index) =>
+            <FileItem
               key={name}
+              index={index}
               src={files[name].imageData}
               onClick={() => { this.props.toggleFile(name) }}
-              selected={this.props.selectedFiles.indexOf(name) >= 0}
-            >
-            </ListItem>
+              selected={selectedFiles.indexOf(name) >= 0}
+              selectionMode={selectionMode}
+            />
           )}
         </List>
       </div>

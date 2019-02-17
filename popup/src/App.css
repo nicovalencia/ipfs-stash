@@ -1,0 +1,32 @@
+
+#logo {
+  background-color: #ECECEC;
+  width: 195px;
+  height: 58px;
+  text-align: center;
+  display: block;
+  clear: both;
+  width: 100%;
+}
+
+#logo img {
+  padding: 11px 4px 0 0;
+}
+
+#dashboardLink {
+  display: block;
+  clear: both;
+  width: 200px;
+  background-color: #cfebf2;
+  padding: 27px;
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#dashboardLink:hover {
+  background-color: #aad5e0;
+}

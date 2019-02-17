@@ -24,7 +24,7 @@ const List = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 15px;
-  padding: 30px;
+  padding: 30px 15px;
 `;
 
 const ListItem = styled.div`
@@ -33,6 +33,10 @@ const ListItem = styled.div`
   cursor: pointer;
   padding: 13px 13px 23px 25px;
   position: relative;
+
+  &:hover {
+    background-color: rgba(255,255,255,0.5);
+  }
 
   ${props => props.active && `
     box-shadow: rgba(-1, 0, 0, 0.05) 0px 5px 4px;

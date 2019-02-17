@@ -1,12 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { createStore } from './util/store';
+import { initializeApp } from './util/thunks';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Redux Store:
+const store = createStore();
+
+console.log('%cInitializing app...', `
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #666;
+`);
+store.dispatch(initializeApp()).then(() => {
+  console.log('%cWelcome to IPFS StashBoard!', `
+    font-size: 22px;
+    color: #00AD83;
+  `);
+});
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+, document.getElementById('root'));

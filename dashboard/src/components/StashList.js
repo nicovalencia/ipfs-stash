@@ -1,25 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { sendFilesToStash, setActiveStash } from '../util/thunks';
+import { sendFilesToStash, setActiveStash, loadStashes } from '../util/thunks';
 import NewStashButton from './NewStashButton';
 
 class StashList extends React.Component {
-
-  state = {
-    loading: true,
-    stashNames: [],
-  };
-
-  _reloadStashes = () => {
-    window.chrome.storage.local.get(['stashNames'], result => {
-      let stashNames = result.stashNames || [];
-      this.setState({
-        stashNames,
-        loading: false,
-      });
-    });
-  };
 
   _handleClick = (stashName) => {
     if (this.props.selectionMode) {
@@ -30,25 +15,27 @@ class StashList extends React.Component {
   };
 
   componentDidMount() {
-    this._reloadStashes();
+    this.props.loadStashes();
     this.props.setActiveStash('unstashed');
   }
 
   render() {
 
-    if (this.state.loading) {
+    const { stashes } = this.props;
+
+    if (Object.keys(stashes).length <= 0) {
       return <span>"Loading stashes..."</span>;
     }
 
     return (
       <div>
         <h2>Stashes</h2>
-        <NewStashButton onUpdate={() => { this._reloadStashes(); }} />
+        <NewStashButton onUpdate={() => { this.props.loadStashes(); }} />
         <ul>
           <li onClick={() => { this._handleClick('unstashed') }}>Unstashed</li>
-          {this.state.stashNames.map(stashName =>
+          {Object.keys(stashes).map(stashName =>
             <li key={stashName} onClick={() => { this._handleClick(stashName) }}>
-              {stashName}
+              {stashName} - {stashes[stashName].length} files
             </li>
           )}
         </ul>
@@ -58,12 +45,14 @@ class StashList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  stashes: state.app.stashes,
   selectionMode: state.app.selectionMode,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   sendFilesToStash: (stashName) => dispatch(sendFilesToStash(stashName)),
   setActiveStash: (stashName) => dispatch(setActiveStash(stashName)),
+  loadStashes: () => dispatch(loadStashes()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StashList);

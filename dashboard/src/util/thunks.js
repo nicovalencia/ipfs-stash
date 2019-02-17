@@ -102,3 +102,24 @@ export const setActiveStash = (stashName) => {
   };
 };
 
+export const loadStashes = () => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+
+      window.chrome.storage.local.get(['stashNames'], async result => {
+        let stashes = {};
+        let stashNames = result.stashNames || [];
+
+        for (var i=0; i<stashNames.length; i++) {
+          let stashName = stashNames[i];
+          stashes[stashName] = await ipfs.files.ls(`/${stashName}`);
+        }
+
+        dispatch(actions.loadStashesSuccess(stashes));
+
+      });
+
+      resolve();
+    });
+  };
+};

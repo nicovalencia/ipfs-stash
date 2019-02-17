@@ -14,6 +14,7 @@ export const {
   resetFiles,
   loadedFile,
   setCurrentStashName,
+  loadStashesSuccess,
 
 } = createActions({
 
@@ -25,6 +26,7 @@ export const {
   'RESET_FILES': undefined,
   'LOADED_FILE': (file) => ({ file }),
   'SET_CURRENT_STASH_NAME': (stashName) => ({ stashName }),
+  'LOAD_STASHES_SUCCESS': (stashes) => ({ stashes }),
 
 });
 
@@ -85,12 +87,18 @@ const app = handleActions({
     currentStashName: stashName,
   }),
 
+  [loadStashesSuccess]: (state, { payload: { stashes } }) => ({
+    ...state,
+    stashes,
+  }),
+
 }, {
   isInitialized: false,
   selectionMode: false,
   selectedFiles: [],
   currentStashName: 'unstashed',
   files: {},
+  stashes: {},
 });
 
 const rootReducer = combineReducers({

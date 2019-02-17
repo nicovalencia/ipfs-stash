@@ -3,9 +3,9 @@ chrome.runtime.onInstalled.addListener(function() {
   console.log("Background process initialized...");
 
   chrome.storage.local.set({
-    rootHash: null,
+    config: {},
   }, function() {
-    console.log("Storage initialized", 'null');
+    console.log("Storage initialized: config", {});
   });
 
 });

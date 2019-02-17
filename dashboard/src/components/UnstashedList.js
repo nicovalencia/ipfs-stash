@@ -7,7 +7,6 @@ const ipfs = new IPFS({
   protocol: "http",
 });
 
-
 class UnstashedList extends React.Component {
 
   state = {
@@ -15,22 +14,21 @@ class UnstashedList extends React.Component {
   };
 
   componentDidMount() {
-    ipfs.files.ls('/stash', (err, files) => {
-      if (err) {
-        console.log(err);
+    ipfs.files.ls('/unstashed', (error, files) => {
+      if (error) {
+        console.log(error);
       }
 
-      console.log('ls /stash', files);
-
       files.forEach(async (file) => {
-        const stats = await ipfs.files.stat(`/stash/${file.name}`);
+        const stats = await ipfs.files.stat(`/unstashed/${file.name}`);
         const files = await ipfs.get(stats.hash);
 
         console.log(files);
 
         var decoder = new TextDecoder('utf8');
-        //var imageData = btoa(decoder.decode(files[0].content));
         var imageData = new TextDecoder("utf-8").decode(files[0].content);
+
+        console.log('parsed', imageData);
 
         if (stats) {
           this.setState({
@@ -50,16 +48,18 @@ class UnstashedList extends React.Component {
     if (this.state.files.length === 0) {
       return <span>"Loading files..."</span>;
     }
-        console.log(this.state);
 
     return (
-      <ul>
-        {this.state.files.map(file =>
-          <li key={file.hash}>
-            <img src={file.imageData} />
-          </li>
-        )}
-      </ul>
+      <div>
+        <h2>Unstashed</h2>
+        <ul>
+          {this.state.files.map(file =>
+            <li key={file.hash}>
+              <img src={file.imageData} />
+            </li>
+          )}
+        </ul>
+      </div>
     );
   }
 }

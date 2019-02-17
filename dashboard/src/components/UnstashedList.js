@@ -17,16 +17,15 @@ class UnstashedList extends React.Component {
         console.log(error);
       }
 
+      if (!files) {
+        return false;
+      }
+
       files.forEach(async (file) => {
         const stats = await ipfs.files.stat(`/unstashed/${file.name}`);
         const files = await ipfs.get(stats.hash);
 
-        console.log(files);
-
-        var decoder = new TextDecoder('utf8');
         var imageData = new TextDecoder("utf-8").decode(files[0].content);
-
-        console.log('parsed', imageData);
 
         if (stats) {
           this.setState({

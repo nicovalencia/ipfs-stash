@@ -31,7 +31,8 @@ const post = (obj) => {
     let buffer;
     switch(obj.type) {
       case "dataUrl":
-        buffer = Buffer.from(obj.data, 'base64');
+        //buffer = Buffer.from(obj.data, 'base64'); DOESN'T WORK
+        buffer = new Buffer(obj.data);
         break;
       case "json":
         buffer = new Buffer(JSON.stringify(obj.data));

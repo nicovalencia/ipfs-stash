@@ -113,12 +113,21 @@ class FileList extends React.Component {
       return <React.Fragment />;
     }
 
+    // Sort by time:
+    let fileArray = Object.keys(files).map(name => {
+      return {
+        name,
+        ...files[name],
+      };
+    });
+    fileArray.sort((a, b) => b.name - a.name);
+
     return (
       <div>
         <Header>
           <div>
             <h2>{currentStashName}</h2>
-            <h3>{Object.keys(files).length} in {currentStashName}</h3>
+            <h3>{fileArray.length} in {currentStashName}</h3>
           </div>
           <div>
             <Remove />
@@ -126,16 +135,16 @@ class FileList extends React.Component {
         </Header>
 
         <List>
-          {Object.keys(files).map((name, index) =>
+          {fileArray.map((file, index) => (
             <FileItem
-              key={name}
+              key={file.name}
               index={index}
-              src={files[name].imageData}
-              onClick={() => { this.props.toggleFile(name) }}
-              selected={selectedFiles.indexOf(name) >= 0}
+              src={file.imageData}
+              onClick={() => { this.props.toggleFile(file.name) }}
+              selected={selectedFiles.indexOf(file.name) >= 0}
               selectionMode={selectionMode}
             />
-          )}
+          ))}
         </List>
       </div>
     );

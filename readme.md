@@ -1,8 +1,14 @@
 # IPFS Stash
 
+![logo](logo.jpg)
+
+![design](design.jpg)
+
 User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
 
 *Note*: this is hackathon code. It is not safe to use, and probably harmful to look at.
+
+*Designed and built by [Two's Complement](http://www.twoscomplement.io)*
 
 # Installing
 
@@ -10,8 +16,17 @@ User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
 * Install Node, NPM
 * Install webpack-cli `npm install webpack-cli -g`
 * Build popup: `cd popup` `npm install` `npm run build`
+* Build dashboard: `cd dashboard` `npm install` `npm run build`
 * Build content scripts: `cd content` `npm install` `webpack`
 * Install extension (`chrome://extensions` enable developer mode `load unpacked` select extension directory
+
+# Usage
+
+* Load webpage
+* Hover over image
+* Click "Stash" button
+* Open extension and visit dashboard to manage files
+* Organize files into "Stashes" (IPFS MFS directories)
 
 # Feature TODO
 

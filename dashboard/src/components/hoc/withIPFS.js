@@ -1,7 +1,7 @@
 import React from 'react';
 import IPFS from 'ipfs-http-client';
 
-const ipfs = new IPFS({
+export const ipfs = new IPFS({
   host: "127.0.0.1",
   port: 5001,
   protocol: "http",

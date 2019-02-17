@@ -9,9 +9,7 @@ class NewStashButton extends React.Component {
     window.chrome.storage.local.get(['stashNames'], result => {
 
       let stashNames = result.stashNames || [];
-      let stashName = `New Stash ${stashNames.length}`;
-
-      console.log(result, stashNames);
+      let stashName = `New Stash ${stashNames.length+1}`;
 
       window.chrome.storage.local.set({
         stashNames: stashNames.concat(stashName),

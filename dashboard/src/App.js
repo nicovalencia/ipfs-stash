@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import UnstashedList from './components/UnstashedList';
+import FileList from './components/FileList';
 import Flush from './components/Flush';
+import Remove from './components/Remove';
 import StashList from './components/StashList';
 
 const Header = styled.h1`
@@ -16,7 +17,8 @@ class App extends Component {
       <div>
         <Header>Welcome to IPFS Stash Dashboard!</Header>
         <Flush />
-        <UnstashedList />
+        <Remove />
+        <FileList />
         <StashList />
       </div>
     );

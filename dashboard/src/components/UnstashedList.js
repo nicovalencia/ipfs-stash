@@ -1,11 +1,6 @@
 import React from 'react';
-import IPFS from 'ipfs-http-client';
 
-const ipfs = new IPFS({
-  host: "127.0.0.1",
-  port: 5001,
-  protocol: "http",
-});
+import withIPFS from './hoc/withIPFS';
 
 class UnstashedList extends React.Component {
 
@@ -14,6 +9,9 @@ class UnstashedList extends React.Component {
   };
 
   componentDidMount() {
+
+    const { ipfs } = this.props;
+
     ipfs.files.ls('/unstashed', (error, files) => {
       if (error) {
         console.log(error);
@@ -64,4 +62,4 @@ class UnstashedList extends React.Component {
   }
 }
 
-export default UnstashedList;
+export default withIPFS(UnstashedList);

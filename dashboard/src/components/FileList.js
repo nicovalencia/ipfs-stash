@@ -1,7 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
+import check from '../check.svg';
 import { toggleFile } from '../util/redux';
+import Remove from './Remove';
+
+const List = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 30px;
+`;
+
+const ListItem = styled.div`
+  position: relative;
+  height: 200px;
+  margin: 15px;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 18px;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+
+  ${props => props.selected && `
+    border: 17px solid #459EA2;
+    height: 166px;
+    &::after {
+      content: "";
+      position: absolute;
+      top: -7px;
+      right: -10px;
+      background-image: url(${check});
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 40px;
+      height: 40px;
+    }
+  `}
+
+  img {
+    width: 230px;
+  }
+`;
 
 class FileList extends React.Component {
 
@@ -17,18 +60,21 @@ class FileList extends React.Component {
     return (
       <div>
         <h2>{currentStashName}</h2>
-        <ul>
+        <h3>{Object.keys(files).length} in {currentStashName}</h3>
+
+        <Remove />
+
+        <List>
           {Object.keys(files).map(name =>
-            <li key={name}>
-              <img src={files[name].imageData} onClick={() => { this.props.toggleFile(name) }} />
-
-              {this.props.selectedFiles.indexOf(name) >= 0 &&
-                <span>SELECTED</span>
-              }
-
-            </li>
+            <ListItem
+              key={name}
+              src={files[name].imageData}
+              onClick={() => { this.props.toggleFile(name) }}
+              selected={this.props.selectedFiles.indexOf(name) >= 0}
+            >
+            </ListItem>
           )}
-        </ul>
+        </List>
       </div>
     );
   }

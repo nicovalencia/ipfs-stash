@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import { createStore } from './util/store';
 import { initializeApp } from './util/thunks';
+import GlobalStyle from './util/GlobalStyle';
 
 // Redux Store:
 const store = createStore();
@@ -24,6 +25,7 @@ store.dispatch(initializeApp()).then(() => {
 
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <App />
   </Provider>
 , document.getElementById('root'));

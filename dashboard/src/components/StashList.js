@@ -23,10 +23,6 @@ class StashList extends React.Component {
 
     const { stashes } = this.props;
 
-    if (Object.keys(stashes).length <= 0) {
-      return <span>"Loading stashes..."</span>;
-    }
-
     return (
       <div>
         <h2>Stashes</h2>

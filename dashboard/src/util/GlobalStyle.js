@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to left, #f4f4f4 50%, #fff 50%);
   }
 
   html, body {
@@ -27,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding-top: 40px;
     padding-left: 15px;
+    text-transform: capitalize;
   }
 
   h3 {

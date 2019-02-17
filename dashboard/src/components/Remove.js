@@ -7,13 +7,14 @@ import { removeFilesFromStash } from '../util/thunks';
 const Button = styled.button`
   background: #F2D2CF;
   border-radius: 33px;
-  font-size: 15px;
   color: #D42F2F;
   letter-spacing: 1.15px;
   margin: 15px 0 0 15px;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
+  font-weight: 500;
+  padding: 15px 24px;
+  font-size: 14px;
 `;
 
 class Remove extends React.Component {

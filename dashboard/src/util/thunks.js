@@ -27,11 +27,16 @@ export const sendFilesToStash = (stashName) => {
         await ipfs.files.cp(`/ipfs/${hash}`, `/${stashName}/${baseName++}`);
       }
 
+      dispatch(removeFilesFromStash());
+
       // Unmark selected mode:
       dispatch(actions.sendFilesToStashSuccess());
 
       // Reload current page without moved files:
       dispatch(setActiveStash(state.app.currentStashName));
+
+      // Reload stash meta to update count:
+      dispatch(loadStashes());
 
       resolve();
     });
@@ -56,6 +61,9 @@ export const removeFilesFromStash = () => {
 
       // Reload current page without removed files:
       dispatch(setActiveStash(state.app.currentStashName));
+
+      // Reload stash meta to update count:
+      dispatch(loadStashes());
 
       resolve();
     });

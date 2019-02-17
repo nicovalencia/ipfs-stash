@@ -6,6 +6,16 @@ import check from '../check.svg';
 import { toggleFile } from '../util/redux';
 import Remove from './Remove';
 
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  > div:last-child {
+    padding: 40px 15px 0 0;
+    text-align: right;
+  }
+`;
+
 const List = styled.div`
   display: grid;
   width: 100%;
@@ -53,16 +63,20 @@ class FileList extends React.Component {
     let { files, currentStashName } = this.props;
 
     if (Object.keys(files).length === 0) {
-      return <span>"Loading files..."</span>;
+      return <React.Fragment />;
     }
-
 
     return (
       <div>
-        <h2>{currentStashName}</h2>
-        <h3>{Object.keys(files).length} in {currentStashName}</h3>
-
-        <Remove />
+        <Header>
+          <div>
+            <h2>{currentStashName}</h2>
+            <h3>{Object.keys(files).length} in {currentStashName}</h3>
+          </div>
+          <div>
+            <Remove />
+          </div>
+        </Header>
 
         <List>
           {Object.keys(files).map(name =>

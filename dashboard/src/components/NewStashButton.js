@@ -1,6 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import withIPFS from './hoc/withIPFS';
+
+const Button = styled.button`
+  background: #CFEBF2;
+  color: #469FA3;
+  border-radius: 33px;
+  letter-spacing: 1.15px;
+  margin: 15px 0 0 15px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 15px 24px;
+  font-size: 14px;
+`;
+
 
 class NewStashButton extends React.Component {
 
@@ -28,7 +43,7 @@ class NewStashButton extends React.Component {
 
   render() {
     return (
-      <button onClick={this._add}>+ New</button>
+      <Button onClick={this._add}>Add</Button>
     );
   }
 }

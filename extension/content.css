@@ -3,11 +3,10 @@
   height: 26px;
   display: block;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: -200px;
+  left: -200px;
   z-index: 99999;
   cursor: pointer;
-  padding: 10px;
   background-position: center;
   background-repeat: no-repeat;
 }

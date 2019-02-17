@@ -12,6 +12,17 @@ const ipfs = new IPFS({
   protocol: "http",
 });
 
+// Flush:
+/*
+ipfs.files.rm('/unstashed', {
+  recursive: true,
+}, (err) => {
+  if (err) {
+    console.error(err)
+  }
+});
+*/
+
 // Initialize Unstashed Stash:
 ipfs.files.mkdir('/unstashed').then(() => {
   console.log("Initialized default Unstashed stash!");
@@ -53,15 +64,14 @@ const post = (obj) => {
 };
 
 const copyToUnstashedDirectory = (cid, name) => {
-  console.log(name);
   ipfs.files.cp(`/ipfs/${cid[0].hash}`, `/unstashed/${name}`);
 };
 
 function processImage(element) {
 
   let fileParts = element.src.split("/");
-  //let fileName = new Date().getTime(); // use timestamp as name for now
-  let fileName = fileParts[fileParts.length-1];
+  let fileName = new Date().getTime(); // use timestamp as name for now
+  //let fileName = fileParts[fileParts.length-1];
 
 
   /*
@@ -122,31 +132,32 @@ const STASHED_URL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAAAaCAYAA
 let $currentImg;
 
 // Create button markup, inject to DOM:
-let button = document.createElement('div');
-button.id = 'stashBtn';
-document.body.append(button);
-button.style.backgroundImage = `url(${BUTTON_URL})`;
+let $button = document.createElement('div');
+$button.id = 'stashBtn';
+document.body.append($button);
+$button.style.backgroundImage = `url(${BUTTON_URL})`;
 
 // Button click handler:
-button.addEventListener('click', e => {
+$button.addEventListener('click', e => {
   processImage($currentImg);
-  button.style.backgroundImage = `url(${STASHED_URL})`;
+  $button.style.backgroundImage = `url(${STASHED_URL})`;
   setTimeout(() => {
-    button.style.backgroundImage = `url(${BUTTON_URL})`;
+    $button.style.backgroundImage = `url(${BUTTON_URL})`;
   }, 2000);
 });
 
 function showButton(element) {
   let rect = element.getBoundingClientRect();
   let $button = document.getElementById('stashBtn');
-  $button.style.top = rect.y + 'px';
-  $button.style.left = rect.x + rect.width - 75 + 'px';
+  $button.style.top = rect.y + 10 + 'px';
+  $button.style.left = rect.x + rect.width - 85 + 'px';
 }
 
 function hideButton() {
   let $button = document.getElementById('stashBtn');
   $button.style.top = '-200px';
   $button.style.left = '-200px';
+  $button.style.backgroundImage = `url(${BUTTON_URL})`;
 }
 
 // Show button when image is hovered:
@@ -154,6 +165,11 @@ document.querySelectorAll('img').forEach(tag => {
   tag.addEventListener('mouseenter', e => {
     showButton(e.target);
     $currentImg = e.target;
+  });
+  tag.addEventListener('mouseleave', e => {
+    if (e.toElement !== $button) {
+      hideButton(e.target);
+    }
   });
 });
 

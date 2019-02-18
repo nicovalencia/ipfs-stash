@@ -54,4 +54,6 @@ Everyday user-friendly Chrome Extension "Stashboard" to manage your IPFS assets.
 * Configurable IPFS options
 * Experiment further with ipfs js embed
 
+[Kauri Hackathon Submission](https://kauri.io/article/f04371889c1b4419b03f89b8fd391dfc/v4/stash-(ipfs-browser-integration))
+
 *Note*: this is hackathon code. It is not safe to use, and probably harmful to look at.

@@ -4,21 +4,19 @@
 
 ![design](design.jpg)
 
-User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
+Everyday user-friendly Chrome Extension "Stashboard" to manage your IPFS assets.
 
-*Note*: this is hackathon code. It is not safe to use, and probably harmful to look at.
+*Designed and built by Katy & Nico [Two's Complement](http://www.twoscomplement.io) for [ETHDenver2019](https://www.ethdenver.com/)*
 
-*Designed and built by [Two's Complement](http://www.twoscomplement.io)*
-
-# Installing
+# Installing (Development)
 
 * Install (and run) [Siderus Orion](https://orion.siderus.io/)
 * Install Node, NPM
 * Install webpack-cli `npm install webpack-cli -g`
-* Build popup: `cd popup` `npm install` `npm run build`
-* Build dashboard: `cd dashboard` `npm install` `npm run build`
-* Build content scripts: `cd content` `npm install` `webpack`
-* Install extension (`chrome://extensions` enable developer mode `load unpacked` select extension directory
+* Build popup: `cd popup`, `npm install`, `npm run build`
+* Build dashboard: `cd dashboard`, `npm install`, `npm run build`
+* Build content scripts: `cd content`, `npm install`, `webpack`
+* Install extension [chrome://extensions](chrome://extensions), enable developer mode, click `load unpacked`, select `extension` directory
 
 # Usage
 
@@ -28,7 +26,7 @@ User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
 * Open extension and visit dashboard to manage files
 * Organize files into "Stashes" (IPFS MFS directories)
 
-# Feature TODO
+# Feature Improvement Ideas
 
 * Support for video, text, and full webpages
 * Support for direct file uploads
@@ -46,7 +44,7 @@ User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
 * Remote node option
 * Advanced mode with all the normal IPFS options
 
-# Code TODO
+# Code Todo
 
 * Separate container / UI components
 * Simplify popup app to static non-React app
@@ -54,3 +52,6 @@ User friendly Chrome extension + "Stashboard" to manage your IPFS assets.
 * Structure multi-file (separated) content script(s)
 * Audit libraries/package sizes across extension parts
 * Configurable IPFS options
+* Experiment further with ipfs js embed
+
+*Note*: this is hackathon code. It is not safe to use, and probably harmful to look at.
